@@ -133,22 +133,255 @@
                 ]
             }
         },
-        "/api/v1/todos": {
+        "/api/v1/task": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "description": "Task - Get All",
+                "operationId": "App\\Http\\Controllers\\Api\\TaskController::getTasks",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/task"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "description": "Task - Created",
+                "operationId": "App\\Http\\Controllers\\Api\\TaskController::postTask",
+                "requestBody": {
+                    "description": "Task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/task"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/task"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/task/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "description": "Task - Get By Id",
+                "operationId": "App\\Http\\Controllers\\Api\\TaskController::getTask",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/task"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "description": "Task - Update",
+                "operationId": "App\\Http\\Controllers\\Api\\TaskController::putTask",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/task"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/task"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "description": "Task - Delete",
+                "operationId": "App\\Http\\Controllers\\Api\\TaskController::delTask",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/todo": {
             "get": {
                 "tags": [
                     "Todo"
                 ],
-                "description": "Todos",
+                "description": "Todos - Get All",
                 "operationId": "App\\Http\\Controllers\\Api\\TodoController::getTodos",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "items": {
                                         "$ref": "#/components/schemas/todo"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Todo"
+                ],
+                "description": "Todo - Created",
+                "operationId": "App\\Http\\Controllers\\Api\\TodoController::postTodo",
+                "requestBody": {
+                    "description": "Todo",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/todo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/todo"
                                 }
                             }
                         }
@@ -172,22 +405,16 @@
                 "tags": [
                     "Todo"
                 ],
-                "description": "Todo Get By Id",
+                "description": "Todo - Get By Id",
                 "operationId": "App\\Http\\Controllers\\Api\\TodoController::getTodo",
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
+                        "$ref": "#/components/parameters/id"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -201,6 +428,86 @@
                     },
                     "401": {
                         "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Todo"
+                ],
+                "description": "Todo - Update",
+                "operationId": "App\\Http\\Controllers\\Api\\TodoController::putTodo",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Todo",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/todo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/todo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Todo"
+                ],
+                "description": "Todo - Delete",
+                "operationId": "App\\Http\\Controllers\\Api\\TodoController::delTodo",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 },
                 "security": [
@@ -261,6 +568,28 @@
                     }
                 ]
             },
+            "task": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "body": {
+                                "type": "string"
+                            },
+                            "done": {
+                                "type": "string",
+                                "format": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "todo": {
                 "allOf": [
                     {
@@ -274,19 +603,22 @@
                             "done": {
                                 "type": "string",
                                 "format": "boolean"
-                            },
-                            "created_at": {
-                                "type": "string",
-                                "format": "datetime"
-                            },
-                            "updated_at": {
-                                "type": "string",
-                                "format": "datetime"
                             }
                         },
                         "type": "object"
                     }
                 ]
+            }
+        },
+        "parameters": {
+            "id": {
+                "name": "id",
+                "in": "path",
+                "description": "Id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
             }
         },
         "securitySchemes": {

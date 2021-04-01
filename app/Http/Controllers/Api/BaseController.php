@@ -21,6 +21,17 @@ use Illuminate\Support\Facades\Validator;
  *         url="http://www.apache.org/licenses/LICENSE-2.0.html"
  *     )
  * )
+ * 
+ * @OA\Parameter(
+ *  name="id",
+ *  description="Id",
+ *  required=true,
+ *  in="path",
+ *  @OA\Schema(
+ *      type="integer"
+ *  )
+ * )
+ * 
  */
 
 abstract class BaseController extends Controller
@@ -44,6 +55,11 @@ abstract class BaseController extends Controller
     public function ok($value)
     {
         return response()->json($value, 200);
+    }
+
+    public function okDeleted()
+    {
+        return response()->json(['status' => 'Successfully deleted'], 200);
     }
 
     public function notFound()

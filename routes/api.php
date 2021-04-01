@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\TodoController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,9 +25,15 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/auth/logout', [AuthController::class, "postSignout"]);
     Route::post('v1/auth/refresh', [AuthController::class, "postRefresh"]);
     //TODOS
-    Route::get('v1/todos', [TodoController::class, "getTodos"]);
+    Route::get('v1/todo', [TodoController::class, "getTodos"]);
     Route::get('v1/todo/{id}', [TodoController::class, "getTodo"]);
     Route::post('v1/todo', [TodoController::class, "postTodo"]);
     Route::put('v1/todo/{id}', [TodoController::class, "putTodo"]);
     Route::delete('v1/todo/{id}', [TodoController::class, "delTodo"]);
+    //TASK
+    Route::get('v1/task', [TaskController::class, "getTasks"]);
+    Route::get('v1/task/{id}', [TaskController::class, "getTask"]);
+    Route::post('v1/task', [TaskController::class, "postTask"]);
+    Route::put('v1/task/{id}', [TaskController::class, "putTask"]);
+    Route::delete('v1/task/{id}', [TaskController::class, "delTask"]);
 });

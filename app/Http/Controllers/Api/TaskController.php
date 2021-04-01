@@ -2,38 +2,41 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Todo;
+use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
-class TodoController extends BaseController
+class TaskController extends BaseController
 {
     /**
      * @OA\Schema(
-     *   schema="todo",
+     *   schema="task",
      *   allOf={
      *     @OA\Schema(
      *       @OA\Property(property="id", type="integer"),
      *       @OA\Property(property="description", type="string"),
+     *       @OA\Property(property="body", type="string"),
      *       @OA\Property(property="done", type="string", format="boolean")
      *     )
      *   }
      * )
      *
      */
-    public function __construct(Todo $model)
+    public function __construct(Task $model)
     {
         parent::__construct($model);
         $this->validations
             ->add('id', 'required|integer')
             ->add('description', 'required|min:2')
+            ->add('body', 'required|min:2')
             ->add('done', 'required');
     }
 
     /**
      * @OA\Get(
-     *     path="/api/v1/todo",
-     *     description="Todos - Get All",
-     *     tags={"Todo"},
+     *     path="/api/v1/task",
+     *     description="Task - Get All",
+     *     tags={"Task"},
      *     security={{"bearer_token":{}}},
      *     @OA\Response(
      *      response=200,
@@ -41,7 +44,7 @@ class TodoController extends BaseController
      *      @OA\MediaType(
      *         mediaType="application/json",
      *         @OA\Schema(
-     *          @OA\Items(ref="#/components/schemas/todo")
+     *          @OA\Items(ref="#/components/schemas/task")
      *         )
      *      )
      *     ),
@@ -49,7 +52,7 @@ class TodoController extends BaseController
      *     @OA\Response(response=401, description="Unauthorized"), 
      * )
      */
-    public function getTodos()
+    public function getTasks()
     {
         $result = $this->model->all();
         return $this->ok($result);
@@ -57,9 +60,9 @@ class TodoController extends BaseController
 
     /**
      * @OA\Get(
-     *     path="/api/v1/todo/{id}",
-     *     description="Todo - Get By Id",
-     *     tags={"Todo"},
+     *     path="/api/v1/task/{id}",
+     *     description="Task - Get By Id",
+     *     tags={"Task"},
      *     security={{"bearer_token":{}}}, 
      *     @OA\Parameter(ref="#/components/parameters/id"),
      *     @OA\Response(
@@ -67,7 +70,7 @@ class TodoController extends BaseController
      *      description="Ok",
      *      @OA\MediaType(
      *         mediaType="application/json",
-     *         @OA\Schema(ref="#/components/schemas/todo")
+     *         @OA\Schema(ref="#/components/schemas/task")
      *      )
      *     ),   
      *     @OA\Response(response=400, description="Bad request"), 
@@ -75,7 +78,7 @@ class TodoController extends BaseController
      *     @OA\Response(response=404, description="Not Found"),
      * )
      */
-    public function getTodo($id)
+    public function getTask($id)
     {
         $result = $this->model->find($id);
         if ($result) {
@@ -86,15 +89,15 @@ class TodoController extends BaseController
 
     /**
      * @OA\Post(
-     *     path="/api/v1/todo",
-     *     description="Todo - Created",
-     *     tags={"Todo"},
+     *     path="/api/v1/task",
+     *     description="Task - Created",
+     *     tags={"Task"},
      *     security={{"bearer_token":{}}}, 
      *     @OA\RequestBody(
      *      required=true,
-     *      description="Todo",
+     *      description="Task",
      *      @OA\JsonContent(
-     *          ref="#/components/schemas/todo"   
+     *          ref="#/components/schemas/task"   
      *      ),
      *     ),     
      *     @OA\Response(
@@ -102,14 +105,14 @@ class TodoController extends BaseController
      *      description="Successful",
      *      @OA\MediaType(
      *         mediaType="application/json",
-     *         @OA\Schema(ref="#/components/schemas/todo")
+     *         @OA\Schema(ref="#/components/schemas/task")
      *      )
      *     ),   
      *     @OA\Response(response=400, description="Bad request"), 
      *     @OA\Response(response=401, description="Unauthorized"), 
      * )
      */
-    public function postTodo(Request $request)
+    public function postTask(Request $request)
     {
         $errors = array();
         if ($this->validated($request->all(), $errors, ['id'])) {
@@ -121,16 +124,16 @@ class TodoController extends BaseController
 
     /**
      * @OA\Put(
-     *     path="/api/v1/todo/{id}",
-     *     description="Todo - Update",
-     *     tags={"Todo"},
+     *     path="/api/v1/task/{id}",
+     *     description="Task - Update",
+     *     tags={"Task"},
      *     security={{"bearer_token":{}}}, 
      *     @OA\Parameter(ref="#/components/parameters/id"),
      *     @OA\RequestBody(
      *      required=true,
-     *      description="Todo",
+     *      description="Task",
      *      @OA\JsonContent(
-     *          ref="#/components/schemas/todo"   
+     *          ref="#/components/schemas/task"   
      *      ),
      *     ),     
      *     @OA\Response(
@@ -138,14 +141,14 @@ class TodoController extends BaseController
      *      description="Successful",
      *      @OA\MediaType(
      *         mediaType="application/json",
-     *         @OA\Schema(ref="#/components/schemas/todo")
+     *         @OA\Schema(ref="#/components/schemas/task")
      *      )
      *     ),   
      *     @OA\Response(response=400, description="Bad request"), 
      *     @OA\Response(response=401, description="Unauthorized"), 
      * )
      */
-    public function putTodo(Request $request, $id)
+    public function putTask(Request $request, $id)
     {
         $errors = array();
         if ($this->validated($request->all(), $errors)) {
@@ -159,9 +162,9 @@ class TodoController extends BaseController
 
     /**
      * @OA\Delete(
-     *     path="/api/v1/todo/{id}",
-     *     description="Todo - Delete",
-     *     tags={"Todo"},
+     *     path="/api/v1/task/{id}",
+     *     description="Task - Delete",
+     *     tags={"Task"},
      *     security={{"bearer_token":{}}}, 
      *     @OA\Parameter(ref="#/components/parameters/id"),
      *     @OA\Response(
@@ -173,7 +176,7 @@ class TodoController extends BaseController
      *     @OA\Response(response=404, description="Not Found"),
      * )
      */
-    public function delTodo($id)
+    public function delTask($id)
     {
         $result = $this->model->find($id);
         if ($result) {
