@@ -20,6 +20,7 @@
                 <b-collapse id="nav-collapse" is-nav>
                     <b-navbar-nav>
                         <router-link class="nav-link" to="/">Home</router-link>
+                        <router-link class="nav-link" to="/task">Task</router-link>
                         <router-link class="nav-link" to="/about">About</router-link>
                     </b-navbar-nav>
                     <b-navbar-nav class="ml-auto">
@@ -34,7 +35,9 @@
                 </b-collapse>
             </b-navbar>
         </div>
-        <router-view></router-view>
+        <b-container class="pt-3">
+            <router-view></router-view>
+        </b-container>
     </div>
     <script type="text/javascript" src="/js/app.js"></script>
 </body>

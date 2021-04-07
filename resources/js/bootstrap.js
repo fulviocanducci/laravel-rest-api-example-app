@@ -5,6 +5,7 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import Home from "./components/Home";
 import About from "./components/About";
 import Login from "./components/Login";
+import Task from "./components/Task";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -50,6 +51,11 @@ const routes = [
         name: "login",
         path: "/login",
         component: Login
+    },
+    {
+        name: "task",
+        path: "/task",
+        component: Task
     }
 ];
 
